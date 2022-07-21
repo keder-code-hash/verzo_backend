@@ -7,7 +7,6 @@ const BookingSchema = new mongoose.Schema({
   },
   bookingDate: {
     type: String,
-    required: true,
   },
   pickUpDate: {
     type: Date,
@@ -31,7 +30,37 @@ const BookingSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Driver",
   },
+  services: [
+    {
+      subServiceId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "SubService",
+      },
+      subServiceOptions: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "SubServiceOption",
+        },
+      ],
+    },
+  ],
+  pickUpAddressId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Address",
+  },
+  dropOffAddressId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Address",
+  },
+  isPaid: {
+    type: Boolean,
+    default: false,
+  },
+  isLive: {
+    type: Boolean,
+    default: true,
+  },
 });
 
-const Booking = new mongoose.model("Booking", BookingSchema);
+const Booking = new mongoose.model("DryCleanBooking", BookingSchema);
 module.exports = Booking;
