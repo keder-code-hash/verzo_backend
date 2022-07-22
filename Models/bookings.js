@@ -42,6 +42,10 @@ const BookingSchema = new mongoose.Schema({
           ref: "SubServiceOption",
         },
       ],
+      quantity: {
+        type: Number,
+        default: 0,
+      },
     },
   ],
   pickUpAddressId: {
