@@ -37,8 +37,8 @@ app.get("/", (req, res) => {
   res.send("Hello");
 });
 
-// const port = process.env.PORT || 4000;
-app.listen(8000, () => console.log(`Listening on 8000`));
+const port = process.env.PORT || 4000;
+app.listen(port, () => console.log(`Listening on 8000`));
 app.use(function (req, res, next) {
   req.setEncoding("utf8");
   next();
