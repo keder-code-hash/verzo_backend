@@ -4,7 +4,7 @@ module.exports = {
   mongoURI: "mongodb+srv://saibal-roy:bwFzMmLTKEY4mgzs@freecluster.eiwhf.mongodb.net/verover",
   apiURL: "http://165.22.62.238/",
   FAST2SMS: process.env.FAST2SMS,
-  secretOrKey: process.env.SECRET_OR_KEY,
+  secretOrKey: "process.env.SECRET_OR_KEY",
   nodeENV: process.env.NODE_ENV,
   stripeSecretKey: process.env.STRIPE_SECRET_KEY,
   clientPath: process.env.CLIENT_PATH,
