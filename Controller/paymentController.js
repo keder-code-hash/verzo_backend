@@ -118,16 +118,18 @@ exports.update_payment_details_after_webhook = async (req, res) => {
       });
     }
     const order = await Order.findById(orderByPI[0]._id);
+    console.log(req.body);
     order.parkingId = req.body.booking_details.parking_id;
     order.parkingSpotId = req.body.booking_details.parking_spot_id;
     order.bookingId = req.body.booking_details.booking_id;
     order.parkingCarSpotId = req.body.booking_details.parkingCarSpotId;
+    order.bookingType = req.body.booking_details.bookingType;
     order.save().then((result) => {
       otp = result.otp;
       console.log("data success fully updated for odrder : " + result._id);
+      console.log("otp: " + otp);
+      return res.status(200).json({ success: true, msg: otp });
     });
-
-    return res.status(200).json({ success: true, msg: "success", otp: otp });
   } catch (error) {
     console.log(error);
     return res.json({

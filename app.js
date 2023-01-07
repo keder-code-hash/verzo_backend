@@ -1,7 +1,7 @@
 const express = require("express");
 var cors = require("cors");
 const bodyParser = require("body-parser");
-// const myReqLogger = require('./Utilities/requestLogger');
+const myReqLogger = require("./Utilities/requestLogger");
 const userRoute = require("./Routes/userRoute");
 const merchantRoute = require("./Routes/merchantRoute");
 const providerRoute = require("./Routes/providerRoute");
@@ -11,9 +11,8 @@ const adminRoute = require("./Routes/admin");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 const app = express();
-app.use(cors());
 require("./DB/db");
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
   bodyParser.json({
     verify: (req, res, buf) => {
@@ -25,7 +24,7 @@ app.use(cors());
 app.use(fileUpload());
 app.use("/public", express.static(path.join(__dirname, "public")));
 
-// app.use(myReqLogger);
+app.use(myReqLogger);
 app.use("/auth", authRoute);
 app.use("/user", userRoute);
 app.use("/merchant", merchantRoute);

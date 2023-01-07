@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
 const Order = new mongoose.Schema({
+
+  ////////////////*** Parking Booking Payment Details ***////////////////////////////
   parkingId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Parking",
@@ -13,10 +15,28 @@ const Order = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "parkingCarSpot",
   },
+  ///////////////////////////////////////////////////////////////////////////
+
+  ////////////////*** Dry Cleaner Booking Payment Details ***////////////////////////
+
+
+  ///////////////////////////////////////////////////////////////////////////
+
+  ////////////////*** General  ***////////////////////////
+  
   bookingId: {
     type: String,
     ref: "ParkingBooking",
   },
+  bookingType:{
+    type: String,
+    default: "prk",
+    enum: ["prk", "dryc"],
+  },
+
+  ////////////////////////////////////////////////////////
+
+  ////////////////*** Payment General  ***////////////////////////
 
   paymentIntent: { type: String },
   moneyValue: {
@@ -41,6 +61,9 @@ const Order = new mongoose.Schema({
   customerId: {
     type: String,
   },
+
+  ///////////////////////////////////////////////////////////////
+
   created_at: {
     type: Date,
     default: Date.now(),

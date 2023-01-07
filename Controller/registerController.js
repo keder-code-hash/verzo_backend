@@ -36,7 +36,9 @@ exports.login = async (req, res) => {
         if(user && user.accountStatus == "blocked") return res.json({ success: false, error: "Account blocked by admin" });
         ////await user.save();
         const payload = { id: user._id };
-        let jwtToken = jwt.sign(payload, keys.secretOrKey, { expiresIn: '365d' });
+        // console.log("success jwt");
+        let jwtToken = jwt.sign(payload, "password", { expiresIn: '365d' });
+        console.log("success not jwt "+jwtToken );
         return res.status(200).json({ success: true, msg: "Logged In", token: jwtToken });
     } catch (error) {
         return res.status(422).send({
