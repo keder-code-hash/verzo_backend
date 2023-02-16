@@ -1,6 +1,7 @@
 const DryCleaning = require("../Model/Drycleaning");
 const Auth = require("../Model/Auth");
 const dryCleanerBooking = require("../Model/dryCleanerBooking");
+const Order = require("../Model/Order");
 
 exports.dryCleanerData = async (req, res) => {
   let model = await DryCleaning.findOne({ userId: req.data.id });
@@ -75,14 +76,52 @@ exports.dryCleanerOrders = async (req, res) => {
   let model = await dryCleanerBooking.find({
     bookingTo: req.data.id,
   });
-  return res.status(200).json({ success: true, msg: "list", data: model });
+  // let otp = 1;
+  let bookingIds = model.map((mod) => {
+    return mod.id;
+  });
+  let allOrderDetails = await Order.find();
+  let otpMap = [];
+  allOrderDetails.map((order) => {
+    if (bookingIds.indexOf(order.bookingId) !== -1) {
+      otpMap.push({
+        bookingId: order.bookingId,
+        otp: order.otp,
+      });
+    }
+  });
+  const result = {
+    model: model,
+    otpMap: otpMap,
+  };
+  console.log(result);
+  return res.status(200).json({ success: true, msg: "list", data: result });
 };
 
 exports.usersOrders = async (req, res) => {
   let model = await dryCleanerBooking.find({
     bookingBy: req.data.id,
   });
-  return res.status(200).json({ success: true, msg: "list", data: model });
+  // let otp = 1;
+  let bookingIds = model.map((mod) => {
+    return mod.id;
+  });
+  let allOrderDetails = await Order.find();
+  let otpMap = [];
+  allOrderDetails.map((order) => {
+    if (bookingIds.indexOf(order.bookingId) !== -1) {
+      otpMap.push({
+        bookingId: order.bookingId,
+        otp: order.otp,
+      });
+    }
+  });
+  const result = {
+    model: model,
+    otpMap: otpMap,
+  };
+  console.log(result);
+  return res.status(200).json({ success: true, msg: "list", data: result });
 };
 
 exports.cancelDryCleaningOrder = async (req, res) => {
