@@ -16,6 +16,7 @@ API_ROUTER.get("/", function (req, resp, next) {
 });
 API_ROUTER.post("/signup", AUTH.signup);
 API_ROUTER.post("/login", AUTH.login);
+API_ROUTER.post("/resetpassword", AUTH.resetPassword);
 API_ROUTER.get(
   "/get-my-profile",
   Middleware.authenticateToken,
