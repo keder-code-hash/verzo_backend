@@ -28,4 +28,4 @@ const ParkingBooking = new mongoose.Schema({
   },
 });
 
-module.exports =  mongoose.model("ParkingBooking", ParkingBooking);
+module.exports = mongoose.model("ParkingBooking", ParkingBooking);

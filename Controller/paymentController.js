@@ -1,5 +1,4 @@
 const Order = require("../Model/Order");
-const Auth = require("../Model/Auth");
 
 const stripe = require("stripe")(
   "sk_test_51GmciYFV0GaG5oxzVIDkog7wdFShykamdXuePWfKRN14EuL1XWYe43qRwFFt7ztidp3dF821MQGIQGrQqLDpjvoq00r2m4oTsM"
