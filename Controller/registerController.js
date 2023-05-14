@@ -120,7 +120,7 @@ exports.getMyProfile = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const user = await Auth.find().toArray();
+    const user = await Auth.find();
     return res.status(200).json({ success: true, data: user });
   } catch (error) {
     return res.status(422).send({
