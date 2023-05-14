@@ -82,17 +82,23 @@ exports.dryCleanerOrders = async (req, res) => {
   });
   let allOrderDetails = await Order.find();
   let otpMap = [];
+  let zipCode = [];
   allOrderDetails.map((order) => {
     if (bookingIds.indexOf(order.bookingId) !== -1) {
       otpMap.push({
         bookingId: order.bookingId,
         otp: order.otp,
       });
+      zipCode.push({
+        bookingId: order.bookingId,
+        zipCode: order.zipCode || "default",
+      });
     }
   });
   const result = {
     model: model,
     otpMap: otpMap,
+    zipCodeMap: zipCode,
   };
   console.log(result);
   return res.status(200).json({ success: true, msg: "list", data: result });
