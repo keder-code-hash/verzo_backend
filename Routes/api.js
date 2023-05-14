@@ -22,6 +22,11 @@ API_ROUTER.get(
   Middleware.authenticateToken,
   AUTH.getMyProfile
 );
+API_ROUTER.get(
+  "/get-all-profile",
+  Middleware.authenticateToken,
+  AUTH.getAllUsers
+);
 API_ROUTER.post(
   "/update-my-profile",
   Middleware.authenticateToken,
