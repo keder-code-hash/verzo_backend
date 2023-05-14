@@ -123,6 +123,7 @@ exports.update_payment_details_after_webhook = async (req, res) => {
     order.bookingId = req.body.booking_details.booking_id;
     order.parkingCarSpotId = req.body.booking_details.parkingCarSpotId;
     order.bookingType = req.body.booking_details.bookingType;
+    order.zipCode = req.body.zipCode;
     order.save().then((result) => {
       otp = result.otp;
       console.log("data success fully updated for odrder : " + result._id);

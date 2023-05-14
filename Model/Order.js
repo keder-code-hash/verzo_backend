@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const Order = new mongoose.Schema({
-
   ////////////////*** Parking Booking Payment Details ***////////////////////////////
   parkingId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -19,19 +18,22 @@ const Order = new mongoose.Schema({
 
   ////////////////*** Dry Cleaner Booking Payment Details ***////////////////////////
 
-
   ///////////////////////////////////////////////////////////////////////////
 
   ////////////////*** General  ***////////////////////////
-  
+
   bookingId: {
     type: String,
     ref: "ParkingBooking",
   },
-  bookingType:{
+  bookingType: {
     type: String,
     default: "prk",
     enum: ["prk", "dryc"],
+  },
+  zipCode: {
+    type: String,
+    default: "default",
   },
 
   ////////////////////////////////////////////////////////
