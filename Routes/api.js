@@ -8,6 +8,7 @@ const AUTH = require("../Controller/registerController");
 const DRY_CLEANER = require("../Controller/dryCleanerController");
 const PARKING = require("../Controller/api/parkingController");
 const PAYMENT = require("../Controller/paymentController");
+const DELIVERY = require("../Controller/deliveryBoyController");
 /** Controllers declaration end */
 
 /** Routing Start */
@@ -59,6 +60,26 @@ API_ROUTER.get(
   PAYMENT.get_all_otps
 );
 ///////////////////////////////////////////////
+
+////////////////deilvery boy////////////////////
+API_ROUTER.post("/delivery/create-delivery", DELIVERY.bookingDeliveryBoy);
+API_ROUTER.post(
+  "/delivery/fetch-delivery-orderid",
+  DELIVERY.fetchDeliveryByByOrderId
+);
+API_ROUTER.post(
+  "/delivery/fetch-delivery-assignto",
+  DELIVERY.fetchDeliveryByByUserId
+);
+API_ROUTER.post(
+  "/delivery/accept-delivery",
+  DELIVERY.updateDeliveryAcceptingStatus
+);
+API_ROUTER.post(
+  "/delivery/reject-delivery",
+  DELIVERY.updateDeliveryRejectingStatus
+);
+//////////////////////////////////////////////
 
 API_ROUTER.get(
   "/get-my-dry-cleaner-profile",
