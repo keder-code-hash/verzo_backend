@@ -67,6 +67,7 @@ API_ROUTER.post(
   "/delivery/fetch-delivery-orderid",
   DELIVERY.fetchDeliveryByByOrderId
 );
+API_ROUTER.post("/delivery/fetch-delivery-all", DELIVERY.fetchDelivery);
 API_ROUTER.post(
   "/delivery/fetch-delivery-assignto",
   DELIVERY.fetchDeliveryByByUserId

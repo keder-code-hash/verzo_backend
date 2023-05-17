@@ -32,6 +32,15 @@ exports.fetchDeliveryByByOrderId = async (req, res) => {
   return res.status(200).json({ success: true, msg: "list", data: result });
 };
 
+exports.fetchDelivery = async (req, res) => {
+  let model = await Delivery.find();
+  const result = {
+    model: model,
+  };
+  console.log(result);
+  return res.status(200).json({ success: true, msg: "list", data: result });
+};
+
 exports.fetchDeliveryByByUserId = async (req, res) => {
   let model = await Delivery.find({
     assignedTo: req.body.assignedTo,
