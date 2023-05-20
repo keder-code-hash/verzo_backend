@@ -83,6 +83,7 @@ exports.dryCleanerOrders = async (req, res) => {
   let allOrderDetails = await Order.find();
   let otpMap = [];
   let zipCode = [];
+  let paymentStatus = [];
   allOrderDetails.map((order) => {
     if (bookingIds.indexOf(order.bookingId) !== -1) {
       otpMap.push({
@@ -93,12 +94,17 @@ exports.dryCleanerOrders = async (req, res) => {
         bookingId: order.bookingId,
         zipCode: order.zipCode || "default",
       });
+      paymentStatus.push({
+        bookingId: order.bookingId,
+        paymentStatus: order.status,
+      });
     }
   });
   const result = {
     model: model,
     otpMap: otpMap,
     zipCodeMap: zipCode,
+    paymentStatus: paymentStatus,
   };
   console.log(result);
   return res.status(200).json({ success: true, msg: "list", data: result });
