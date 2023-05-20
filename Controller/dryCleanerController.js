@@ -120,17 +120,23 @@ exports.usersOrders = async (req, res) => {
   });
   let allOrderDetails = await Order.find();
   let otpMap = [];
+  let paymentStatus = [];
   allOrderDetails.map((order) => {
     if (bookingIds.indexOf(order.bookingId) !== -1) {
       otpMap.push({
         bookingId: order.bookingId,
         otp: order.otp,
       });
+      paymentStatus.push({
+        bookingId: order.bookingId,
+        paymentStatus: order.status,
+      });
     }
   });
   const result = {
     model: model,
     otpMap: otpMap,
+    paymentStatus: paymentStatus,
   };
   console.log(result);
   return res.status(200).json({ success: true, msg: "list", data: result });
