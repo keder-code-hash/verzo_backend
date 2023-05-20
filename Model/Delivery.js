@@ -9,6 +9,11 @@ const deliveryBoy = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Auth",
   },
+  assignedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Auth",
+    null: true,
+  },
   bookingStatus: {
     type: String,
   },

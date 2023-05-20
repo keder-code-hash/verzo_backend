@@ -10,6 +10,7 @@ exports.bookingDeliveryBoy = async (req, res) => {
     orderId: req.body.orderId,
     assignedTo: req.body.assignedTo,
     bookingStatus: req.body.bookingStatus,
+    assignedBy: req.body.assignedBy,
   });
   await model.save();
   return res.status(200).json({
