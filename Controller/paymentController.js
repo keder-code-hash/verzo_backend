@@ -85,7 +85,7 @@ exports.payment_intent_webhooks = async (request, response) => {
         currencyCode: paymentIntent.currency,
         reciept_url: event.data.object.charges.data[0].reciept_url,
         otp: this.generateOTP(4),
-        status: "success",
+        status: "incomplete",
         customerId: paymentIntent.customer,
         payment_method_details: JSON.stringify(
           event.data.object.charges.data[0].payment_method_details
@@ -124,6 +124,7 @@ exports.update_payment_details_after_webhook = async (req, res) => {
     order.parkingCarSpotId = req.body.booking_details.parkingCarSpotId;
     order.bookingType = req.body.booking_details.bookingType;
     order.zipCode = req.body.zipCode;
+    order.status = "success";
     order.save().then((result) => {
       otp = result.otp;
       console.log("data success fully updated for odrder : " + result._id);
