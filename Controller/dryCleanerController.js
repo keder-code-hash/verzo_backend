@@ -2,6 +2,7 @@ const DryCleaning = require("../Model/Drycleaning");
 const Auth = require("../Model/Auth");
 const dryCleanerBooking = require("../Model/dryCleanerBooking");
 const Order = require("../Model/Order");
+const Drycleaning = require("../Model/Drycleaning");
 
 exports.dryCleanerData = async (req, res) => {
   let model = await DryCleaning.findOne({ userId: req.data.id });
@@ -114,7 +115,14 @@ exports.usersOrders = async (req, res) => {
   let model = await dryCleanerBooking.find({
     bookingBy: req.data.id,
   });
-  // let otp = 1;
+  let allDryCleanners = await Drycleaning.find();
+  model.map((model) => {
+    const drycleaner = allDryCleanners.find(
+      (dryc) => dryc.userId === model.bookingTo
+    );
+    model.bookingToDryCleanerName =
+      drycleaner.about + "," + drycleaner.merchantCity || "Null";
+  });
   let bookingIds = model.map((mod) => {
     return mod.id;
   });
