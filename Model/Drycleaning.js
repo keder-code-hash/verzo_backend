@@ -13,33 +13,37 @@ const drycleaningSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  availability: [{
-    day: {
-      type: String,
-      default: "",
+  availability: [
+    {
+      day: {
+        type: String,
+        default: "",
+      },
+      startTime: {
+        type: String,
+        default: "",
+      },
+      endTime: {
+        type: String,
+        default: "",
+      },
     },
-    startTime: {
-      type: String,
-      default: "",
-    },
-    endTime: {
-      type: String,
-      default: "",
-    }
-  }],
+  ],
   acceptItems: Object,
-  images: [{
-    imageName: {
-      type: String,
-      default: "",
+  images: [
+    {
+      imageName: {
+        type: String,
+        default: "",
+      },
     },
-  }],
+  ],
 
   about: {
     type: String,
     maxlength: 255,
     trim: true,
-    default: ""
+    default: "",
   },
 
   coordinates: {

@@ -116,38 +116,36 @@ exports.usersOrders = async (req, res) => {
     bookingBy: req.data.id,
   });
   let allDryCleanners = await Drycleaning.find();
-  model.map((model) => {
-    const drycleaner = allDryCleanners.find(
-      (dryc) => dryc.userId === model.bookingTo
-    );
-    model.bookingToDryCleanerName =
-      drycleaner.about + "," + drycleaner.merchantCity || "Null";
-  });
-  let bookingIds = model.map((mod) => {
-    return mod.id;
-  });
-  let allOrderDetails = await Order.find();
+
   let otpMap = [];
   let paymentStatus = [];
-  allOrderDetails.map((order) => {
-    if (bookingIds.indexOf(order.bookingId) !== -1) {
-      otpMap.push({
-        bookingId: order.bookingId,
-        otp: order.otp,
-      });
-      paymentStatus.push({
-        bookingId: order.bookingId,
-        paymentStatus: order.status,
-      });
-    }
-  });
-  const result = {
-    model: model,
-    otpMap: otpMap,
-    paymentStatus: paymentStatus,
-  };
-  console.log(result);
-  return res.status(200).json({ success: true, msg: "list", data: result });
+  try {
+    let bookingIds = model.map((mod) => {
+      return mod.id;
+    });
+    let allOrderDetails = await Order.find();
+    allOrderDetails.map((order) => {
+      if (bookingIds.indexOf(order.bookingId) !== -1) {
+        otpMap.push({
+          bookingId: order.bookingId,
+          otp: order.otp,
+        });
+        paymentStatus.push({
+          bookingId: order.bookingId,
+          paymentStatus: order.status,
+        });
+      }
+    });
+    const result = {
+      model: model,
+      otpMap: otpMap,
+      paymentStatus: paymentStatus,
+      dryCleaners: allDryCleanners,
+    };
+    return res.status(200).json({ success: true, msg: "list", data: result });
+  } catch (error) {
+    return res.status(500).json({ success: false, msg: "error" });
+  }
 };
 
 exports.cancelDryCleaningOrder = async (req, res) => {
