@@ -34,7 +34,7 @@ exports.savePinCodeData = async (req, res) => {
 };
 
 exports.countryList = async (req, res) => {
-    let model = await Country.find({}).sort({ countryName: 'asc' });
+    let model = await Country.find({}).sort({ name: 'asc' });
     return res.status(200).json({ success: true, data: model });
 };
 
