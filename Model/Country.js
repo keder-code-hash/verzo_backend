@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const CountrySchema = new mongoose.Schema({
-    countryName: {
+    name: {
         type: String,
     },
     created_at: {

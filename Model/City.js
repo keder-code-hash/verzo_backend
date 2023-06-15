@@ -5,18 +5,11 @@ const City = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Auth",
     },
-    countryName: {
+    country: {
         type: String,
     },
-    stateId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Auth",
-    },
-    stateName: {
-        type: String,
-    },
-    cityName: {
-        type: String,
+    cities: {
+        type: Object,
     },
     created_at: {
         type: Date,

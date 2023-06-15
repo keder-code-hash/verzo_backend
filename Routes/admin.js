@@ -9,7 +9,7 @@ const COUNTRY = require('../Controller/admin/countryController');
 /** Controllers declaration end */
 
 /** Routing Start */
-API_ROUTER.get('/', function(req, resp, next){ resp.send("Admin routs are ready to use") });
+API_ROUTER.get('/', function (req, resp, next) { resp.send("Admin routs are ready to use") });
 API_ROUTER.post('/signup', AUTH.signup);
 API_ROUTER.post('/login', AUTH.login);
 

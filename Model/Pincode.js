@@ -1,38 +1,17 @@
 const mongoose = require("mongoose");
 
 const Pincode = new mongoose.Schema({
-    countryId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Auth",
-    },
-    countryName: {
+    state_name: {
         type: String,
     },
-    stateId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Auth",
-    },
-    stateName: {
+    city: {
         type: String,
     },
-    cityId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Auth",
-    },
-    cityName: {
+    zip: {
         type: String,
     },
-    pinCode: {
-        type: String,
-    },
-    created_at: {
-        type: Date,
-        default: Date.now(),
-    },
-    updated_at: {
-        type: Date,
-        default: Date.now(),
-    }
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model("Pincode", Pincode);

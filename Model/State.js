@@ -5,11 +5,11 @@ const State = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Auth",
     },
-    countryName: {
+    country: {
         type: String,
     },
-    stateName: {
-        type: String,
+    states: {
+        type: [String],
     },
     created_at: {
         type: Date,
