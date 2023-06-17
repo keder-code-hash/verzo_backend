@@ -22,7 +22,7 @@ exports.stateList = async (req, res) => {
             message: 'Country is required'
         })
     }
-    const state_list = await db.collection('states').find({ country: country }).toArray();
+    const state_list = await db.collection('states').findOne({ country: country }).toArray();
     res.status(200).send(state_list);
 }
 
