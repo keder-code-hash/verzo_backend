@@ -46,44 +46,25 @@ exports.stateList = async (req, res) => {
 }
 
 exports.cityList = async (req, res) => {
-    res.status(200).json([
-        {
-            citySlug: 'kolkata',
-            cityName: 'Kolkata',
-            state: {
-                stateSlug: "west_bengal",
-                stateName: "West Bengal"
-            },
-            country: {
-                countrySlug: "india",
-                countryName: "India"
-            }
-        },
-        {
-            citySlug: 'pune',
-            cityName: 'Pune',
-            state: {
-                stateSlug: "maharastra",
-                stateName: "Maharastra"
-            },
-            country: {
-                countrySlug: "india",
-                countryName: "India"
-            }
-        },
-        {
-            citySlug: 'bengaluru',
-            cityName: 'Bengaluru',
-            state: {
-                stateSlug: "karnataka",
-                stateName: "Karnataka"
-            },
-            country: {
-                countrySlug: "india",
-                countryName: "India"
-            }
-        }
-    ])
+    const country = req.query.country;
+    const state = req.query.state;
+    if (!country) {
+        return res.status(400).json({
+            status: 'fail',
+            message: 'Country is required'
+        })
+    }
+    if (!state) {
+        return res.status(400).json({
+            status: 'fail',
+            message: 'State is required'
+        })
+    }
+    const list = await db.collection('cities').findOne({ country: country });
+    const city_list = list.cities[state];
+    res.status(200).send(
+        city_list
+    )
 }
 
 exports.dayList = async (req, res) => {
