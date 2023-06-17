@@ -201,6 +201,8 @@ API_ROUTER.post(
   PARKING.releaseBookingSpot
 );
 
+
+API_ROUTER.get("/country-list", HOME.countryList);
 API_ROUTER.get("/state-list", HOME.stateList);
 API_ROUTER.get("/city-list", HOME.cityList);
 API_ROUTER.get("/day-list", HOME.dayList);

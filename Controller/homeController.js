@@ -14,6 +14,18 @@ exports.inValid = async (req, res) => {
     })
 }
 
+exports.countryList = async (req, res) => {
+    try {
+        const country_list = await db.collection('countries').find().toArray();
+        res.status(200).send(country_list);
+    } catch (err) {
+        res.status(500).json({
+            status: 'fail',
+            message: err.message
+        })
+    }
+}
+
 exports.stateList = async (req, res) => {
     try {
         const country = req.query.country;
