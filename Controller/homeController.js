@@ -15,8 +15,11 @@ exports.inValid = async (req, res) => {
 }
 
 exports.countryList = async (req, res) => {
+    const countr = "US";
     try {
-        const country_list = await db.collection('countries').find().toArray();
+        const country_list = await db.collection('countries').find({
+            code: countr
+        }).toArray();
         res.status(200).send(country_list);
     } catch (err) {
         res.status(500).json({
