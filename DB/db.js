@@ -9,3 +9,7 @@ mongoose
   )
   .then(() => console.log("Database connected"))
   .catch((err) => console.log("Error in database connection", err.message));
+
+const db = mongoose.connection;
+
+module.exports = db;

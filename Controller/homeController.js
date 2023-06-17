@@ -1,3 +1,4 @@
+import db from '../DB/db';
 const DryCleaning = require('../Model/Drycleaning');
 const Auth = require('../Model/Auth');
 const dryCleanerBooking = require('../Model/dryCleanerBooking');
@@ -14,66 +15,15 @@ exports.inValid = async (req, res) => {
 }
 
 exports.stateList = async (req, res) => {
-    res.status(200).json([
-        {
-            stateSlug: 'west_bengal',
-            stateName: 'West Bengal',
-            city: [
-                {
-                    citySlug: "kolkata",
-                    cityName: "Kolkata"
-                },
-                {
-                    citySlug: "hawrah",
-                    cityName: "Hawrah"
-                },
-                {
-                    citySlug: "siliguri",
-                    cityName: "Siliguri"
-                },
-                {
-                    citySlug: "kharagpur",
-                    cityName: "Kharagpur"
-                },
-            ],
-        },
-        {
-            stateSlug: 'maharastra',
-            stateName: 'Maharastra',
-            city: [
-                {
-                    citySlug: "pune",
-                    cityName: "Pune"
-                },
-                {
-                    citySlug: "mumbai",
-                    cityName: "Mumbai"
-                },
-                {
-                    citySlug: "nagpur",
-                    cityName: "Nagpur"
-                }
-            ],
-        },
-        {
-            stateSlug: 'karnataka',
-            stateName: 'Karnataka',
-            city: [
-                {
-                    citySlug: "bengaluru",
-                    cityName: "Bengaluru"
-                },
-                {
-                    citySlug: "belgaum",
-                    cityName: "Belgaum"
-                },
-                {
-                    citySlug: "hassan",
-                    cityName: "Hassan"
-                }
-            ],
-        }
-    ])
+    const country = req.query.country;
+    if (!country) {
+        return res.status(400).json({
+            status: 'fail',
+            message: 'Country is required'
+        })
+    }
+    const state_list = await db.collection('states').find({ country: country }).toArray();
+    res.status(200).send(state_list);
 }
 
 exports.cityList = async (req, res) => {
