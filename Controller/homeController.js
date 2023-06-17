@@ -1,4 +1,4 @@
-import db from '../DB/db';
+const db = require('../DB/db');
 const DryCleaning = require('../Model/Drycleaning');
 const Auth = require('../Model/Auth');
 const dryCleanerBooking = require('../Model/dryCleanerBooking');
