@@ -19,6 +19,7 @@ exports.updateDryCleanerProfile = async (req, res) => {
   if (req.body.images) model.images = req.body.images;
   if (req.body.about) model.about = req.body.about;
   model.merchantName = User.firstName + " " + User.lastName;
+  model.merchantState = User.state || req.body.state;
   model.merchantCity = User.city || req.body.city;
   model.merchantAddress = User.address || req.body.address;
   model.status = "active";

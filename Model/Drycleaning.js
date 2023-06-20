@@ -9,6 +9,10 @@ const drycleaningSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  merchantState: {
+    type: String,
+    default: "",
+  },
   merchantCity: {
     type: String,
     default: "",
