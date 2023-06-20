@@ -13,6 +13,10 @@ const drycleaningSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  merchantAddress: {
+    type: String,
+    default: "",
+  },
   availability: [
     {
       day: {
