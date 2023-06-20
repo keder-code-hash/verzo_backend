@@ -60,7 +60,7 @@ exports.myDryCleanerBooking = async (req, res) => {
   });
   model.bookingByUserName = userDetails.firstName + " " + userDetails.lastName;
   model.bookingToDryCleanerName = dryCleanerDetails.merchantName;
-  model.bookingToDryCleanerAddress = req.body.address;
+  model.bookingByUserAddress = req.body.address;
   if (req.body.bookingItems) model.bookingItems = req.body.bookingItems;
   if (req.body.totalPrice) model.totalPrice = req.body.totalPrice;
   model.paymentBy = "cash";
