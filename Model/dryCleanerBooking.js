@@ -17,6 +17,10 @@ const dryCleanerBooking = new mongoose.Schema({
         type: String,
         default: "",
     },
+    bookingToDryCleanerAddress: {
+        type: String,
+        default: "",
+    },
     bookingItems: [
         {
             itemName: String,
