@@ -5,6 +5,8 @@ const Parking = require('../Model/Parking');
 const parkingSpace = require('../Model/parkingSpace');
 const parkingCarSpot = require('../Model/parkingCarSpot');
 const ParkingBooking = require('../Model/ParkingBooking');
+const State = require('../Model/State');
+const City = require('../Model/City');
 
 exports.inValid = async (req, res) => {
     res.status(404).json({
@@ -13,108 +15,60 @@ exports.inValid = async (req, res) => {
     })
 }
 
+exports.countryList = async (req, res) => {
+    const countr = "US";
+    try {
+        const country_list = await db.collection('countries').find({
+            code: countr
+        }).toArray();
+        res.status(200).send(country_list);
+    } catch (err) {
+        res.status(500).json({
+            status: 'fail',
+            message: err.message
+        })
+    }
+}
+
 exports.stateList = async (req, res) => {
-    res.status(200).json([
-        {
-            stateSlug: 'west_bengal',
-            stateName: 'West Bengal',
-            city: [
-                {
-                    citySlug: "kolkata",
-                    cityName: "Kolkata"
-                },
-                {
-                    citySlug: "hawrah",
-                    cityName: "Hawrah"
-                },
-                {
-                    citySlug: "siliguri",
-                    cityName: "Siliguri"
-                },
-                {
-                    citySlug: "kharagpur",
-                    cityName: "Kharagpur"
-                },
-            ],
-        },
-        {
-            stateSlug: 'maharastra',
-            stateName: 'Maharastra',
-            city: [
-                {
-                    citySlug: "pune",
-                    cityName: "Pune"
-                },
-                {
-                    citySlug: "mumbai",
-                    cityName: "Mumbai"
-                },
-                {
-                    citySlug: "nagpur",
-                    cityName: "Nagpur"
-                }
-            ],
-        },
-        {
-            stateSlug: 'karnataka',
-            stateName: 'Karnataka',
-            city: [
-                {
-                    citySlug: "bengaluru",
-                    cityName: "Bengaluru"
-                },
-                {
-                    citySlug: "belgaum",
-                    cityName: "Belgaum"
-                },
-                {
-                    citySlug: "hassan",
-                    cityName: "Hassan"
-                }
-            ],
+    try {
+        const country = req.query.country;
+        if (!country) {
+            return res.status(400).json({
+                status: 'fail',
+                message: 'Country is required'
+            })
         }
-    ])
+        const state_list = await State.find({ countryName: country });
+        res.status(200).send(state_list);
+    } catch (err) {
+        res.status(500).json({
+            status: 'fail',
+            message: err.message
+        })
+    }
 }
 
 exports.cityList = async (req, res) => {
-    res.status(200).json([
-        {
-            citySlug: 'kolkata',
-            cityName: 'Kolkata',
-            state: {
-                stateSlug: "west_bengal",
-                stateName: "West Bengal"
-            },
-            country: {
-                countrySlug: "india",
-                countryName: "India"
-            }
-        },
-        {
-            citySlug: 'pune',
-            cityName: 'Pune',
-            state: {
-                stateSlug: "maharastra",
-                stateName: "Maharastra"
-            },
-            country: {
-                countrySlug: "india",
-                countryName: "India"
-            }
-        },
-        {
-            citySlug: 'bengaluru',
-            cityName: 'Bengaluru',
-            state: {
-                stateSlug: "karnataka",
-                stateName: "Karnataka"
-            },
-            country: {
-                countrySlug: "india",
-                countryName: "India"
-            }
-        }
-    ])
+    const country = req.query.country;
+    const state = req.query.state;
+    if (!country) {
+        return res.status(400).json({
+            status: 'fail',
+            message: 'Country is required'
+        })
+    }
+    if (!state) {
+        return res.status(400).json({
+            status: 'fail',
+            message: 'State is required'
+        })
+    }
+    const list = await City.find({ countryName : country, stateName: state });
+
+    res.status(200).send(
+        list
+    )
 }
 
 exports.dayList = async (req, res) => {

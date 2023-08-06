@@ -4,6 +4,8 @@ const dryCleanerBooking = require("../Model/dryCleanerBooking");
 const Order = require("../Model/Order");
 const Drycleaning = require("../Model/Drycleaning");
 
+
+
 exports.dryCleanerData = async (req, res) => {
   let model = await DryCleaning.findOne({ userId: req.data.id });
   if (!model) model = await DryCleaning.create({ userId: req.data.id });
@@ -19,21 +21,40 @@ exports.updateDryCleanerProfile = async (req, res) => {
   if (req.body.images) model.images = req.body.images;
   if (req.body.about) model.about = req.body.about;
   model.merchantName = User.firstName + " " + User.lastName;
-  model.merchantCity = User.city || "kolkata";
+  model.merchantCity = req.body.merchantCity || "Las Vegas";
+  model.merchantState = req.body.merchantState || "Nevada";
   model.status = "active";
   await model.save();
   if (!User.isDryCleaner) {
     User.isDryCleaner = true;
     await User.save();
   }
+  // const {  pinCode } = req.body;
+  const countryName = "US";
+  const stateName = req.body.merchantState || "Nevada";
+  const cityName = req.body.merchantCity || "Las Vegas";
+  let countryDetails = await Country.findOne({countryName});
+  if(!countryDetails) countryDetails = await Country.create({ countryName });
+  let countryId = countryDetails._id;
+  let stateDetails = await State.findOne({countryName, stateName});
+  if(!stateDetails) stateDetails = await State.create({countryId, countryName, stateName });
+  let stateId = stateDetails._id;
+  let cityDetails = await City.findOne({countryName, stateName, cityName});
+  if(!cityDetails) cityDetails = await City.create({countryId, countryName, stateId, stateName, cityName });
+  let cityId = cityDetails._id;
+
+  // let pinCodeDetails = await Pincode.findOne({countryName, stateName, cityName, pinCode});
+  // if(pinCodeDetails) return res.status(200).json({ success: false, msg: "PinCode already exists"  });
+  // pinCodeDetails = await Pincode.create({countryId, countryName, stateId, stateName, cityId, cityName, pinCode });
   return res
     .status(200)
     .json({ success: true, msg: "Dry cleaner profile updated successful" });
 };
 
 exports.searchDryCleaner = async (req, res) => {
+
   let model = await DryCleaning.find({
-    userId: { $ne: req.data.id },
+    userId: req.data.id,
     merchantCity: req.query.cityName,
     status: "active",
   });
