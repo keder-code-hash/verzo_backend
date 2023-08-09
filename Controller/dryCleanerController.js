@@ -54,7 +54,6 @@ exports.updateDryCleanerProfile = async (req, res) => {
 exports.searchDryCleaner = async (req, res) => {
 
   let model = await DryCleaning.find({
-    userId: req.data.id,
     merchantCity: req.query.cityName,
     status: "active",
   });
