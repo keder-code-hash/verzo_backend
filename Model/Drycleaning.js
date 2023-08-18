@@ -66,6 +66,14 @@ const drycleaningSchema = new mongoose.Schema({
     default: "inactive",
     enum: ["active", "inactive"],
   },
+  name:{
+    type:String,
+    default:""
+  },
+  address:{
+    type:String,
+    default:""
+  },
   created_at: {
     type: Date,
     default: Date.now(),

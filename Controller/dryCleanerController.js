@@ -25,6 +25,8 @@ exports.updateDryCleanerProfile = async (req, res) => {
   model.merchantCity = req.body.merchantCity || "Las Vegas";
   model.merchantState = req.body.merchantState || "Nevada";
   model.status = "active";
+  model.address=req.body.dryCleanerAddress||"";
+  model.name=req.body.dryCleanerName||"";
   await model.save();
   if (!User.isDryCleaner) {
     User.isDryCleaner = true;
